@@ -1,0 +1,81 @@
+/* with <3 from agvantibo */
+
+:root {
+  --fg: #8ff0a4;
+  --bg: #241f31;
+  --act: #813d9c;
+  color: var(--fg);
+  background-color: var(--bg);
+  font-family: "Overpass Mono", monospace;
+  font-weight: 333;
+  font-style: normal;
+}
+
+#congrats {
+  display: none;
+  color: var(--fg);
+}
+
+#congrats[yippee=true] {
+  display: block;
+}
+
+#game {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 50%;
+  text-align: center;
+}
+
+#game table {
+  margin: 1px;
+}
+
+.table-content {
+  background: var(--bg);
+  color: var(--fg);
+  padding: 14px 14px;
+  height: 5em;
+  width: 5fem;
+  border: var(--fg) 2px solid;
+  border-radius: 3px;
+  aspect-ratio: 1;
+  margin: auto;
+}
+
+.table-content[aria-expanded=true] {
+  border: var(--act) 2px solid;
+  color: var(--act);
+}
+
+.table-content-text {
+  visibility: hidden;
+}
+
+.table-content[aria-expanded=true] .table-content-text {
+  visibility: unset;
+}
+
+@keyframes pulse {
+  100% {transform: rotate(-16deg) scale(1.2);} 
+}
+
+.header-container {
+  margin: auto;
+  padding: 1em;
+  margin: 1em;
+  margin-top: 1em;
+}
+
+#header {
+  margin: auto;
+  padding: 20px;
+  margin-top: 40px;
+  width: 50%;
+  text-align: center;
+
+  transform: rotate(-16deg);
+  animation: pulse 0.4s alternate infinite ease-out;
+}
+
