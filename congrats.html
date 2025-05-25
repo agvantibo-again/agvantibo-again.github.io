@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background: #1a1a1a;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #message {
+            margin: auto;
+            background: inherit;
+            font-family: monospace;
+            position: absolute;
+            transform: translate(-50%, 0);
+            left: 50%;
+            font-size: 24pt;
+        }
+
+        #center {
+            width: 50px;
+            height: 50px;
+            background: #00ffff;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 30px #00ffff;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00ffff;
+            border-radius: 50%;
+            animation: move 2s ease-out forwards, fadeInOut 2s;
+            box-shadow: 0 0 10px #00ffff;
+        }
+
+        .particle::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: inherit;
+            animation: trail 1s ease-out forwards;
+        }
+
+        @keyframes move {
+            from {
+                transform: translate(var(--start-x), var(--start-y));
+            }
+            to {
+                transform: translate(calc(50vw - 2px), calc(50vh - 2px));
+            }
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes trail {
+            from {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: scale(3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <p id="message">the password is cap1ta1i5m</p> 
+    <a href="https://pastebin.com/uyZ2BYF5" id="center">
+    </a>
+
+    <script>
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+
+            // Random starting position around the edges
+            const edge = Math.random();
+            let x, y;
+            
+            if (edge < 0.25) { // top
+                x = Math.random() * window.innerWidth;
+                y = 0;
+            } else if (edge < 0.5) { // right
+                x = window.innerWidth;
+                y = Math.random() * window.innerHeight;
+            } else if (edge < 0.75) { // bottom
+                x = Math.random() * window.innerWidth;
+                y = window.innerHeight;
+            } else { // left
+                x = 0;
+                y = Math.random() * window.innerHeight;
+            }
+
+            particle.style.setProperty('--start-x', `${x}px`);
+            particle.style.setProperty('--start-y', `${y}px`);
+
+            // Random color variation
+            const hue = 180 + Math.random() * 20 - 10;
+            particle.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
+            particle.style.boxShadow = `0 0 10px hsl(${hue}, 100%, 50%)`;
+
+            document.body.appendChild(particle);
+
+            // Remove element after animation
+            setTimeout(() => particle.remove(), 2000);
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 50);
+    </script>
+</body>
+</html>
